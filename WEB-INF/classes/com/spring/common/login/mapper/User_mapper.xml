@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.common.login.mapper.UserMapper">
+
+	<select id="getUserList" resultType="com.spring.common.login.model.User">
+		select
+		TB.dbidkey as id,
+		TB.name as name
+		from app_address TB
+	</select>
+
+	<select id="getUserByUserName" parameterType="String"
+		resultType="com.spring.common.login.model.User">
+		select
+		tb.dbidkey,
+		tb.id,
+		tb.name,
+		tb.password
+		from app_user tb
+		where 1=1
+		<if test="_parameter != null">
+			and tb.name = #{_parameter}
+		</if>
+	</select>
+
+</mapper>
