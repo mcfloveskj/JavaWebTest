@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.application.register.mapper.RegisterMapper">
+
+	<insert id="save" parameterType="com.spring.application.register.model.Register">
+		INSERT INTO
+		app_patient_register(
+		dbidkey,
+		patientnum,
+		selected,
+		removed,
+		sahbaddate,
+		hunthess,
+		informdate,
+		islive,
+		studenta,
+		studentb,
+		signdate
+		)
+		VALUES
+		(
+		#{dbidkey},
+		#{patientnum},
+		#{selected},
+		#{removed},
+		#{sahbaddate},
+		#{hunthess},
+		#{informdate},
+		#{islive},
+		#{studenta},
+		#{studentb},
+		#{signdate}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.spring.application.register.model.Register">
+		update app_patient_register set
+		dbidkey = #{dbidkey},
+		patientnum = #{patientnum},
+		selected = #{selected},
+		removed = #{removed},
+		sahbaddate = #{sahbaddate},
+		hunthess = #{hunthess},
+		informdate = #{informdate},
+		islive = #{islive},
+		studenta = #{studenta},
+		studentb = #{studentb},
+		signdate = #{signdate}
+		where dbidkey = #{dbidkey}
+	</update>
+
+	<select id="getRegisterList" parameterType="java.util.Map"
+		resultType="com.spring.application.register.model.Register">
+		SELECT
+		app_patient_register.dbidkey,
+		app_patient_register.patientnum,
+		app_patient_register.selected,
+		app_patient_register.removed,
+		app_patient_register.sahbaddate,
+		app_patient_register.hunthess,
+		app_patient_register.informdate,
+		app_patient_register.islive,
+		app_patient_register.studenta,
+		app_patient_register.studentb,
+		app_patient_register.signdate
+		FROM
+		app_patient_register
+		where 1=1
+		<if test="patientnum != null">
+			and patientnum like '%${patientnum}%'
+		</if>
+		<if test="hunthess != null">
+			and hunthess like '%${hunthess}%'
+		</if>
+		<if test="start != null and end != null">
+			limit #{start}, #{end}
+		</if>
+		order by app_patient_register.patientnum
+	</select>
+
+	<select id="queryByDbidkey" parameterType="java.lang.String"
+		resultType="com.spring.application.register.model.Register">
+		SELECT
+		app_patient_register.dbidkey,
+		app_patient_register.patientnum,
+		app_patient_register.selected,
+		app_patient_register.removed,
+		app_patient_register.sahbaddate,
+		app_patient_register.hunthess,
+		app_patient_register.informdate,
+		app_patient_register.islive,
+		app_patient_register.studenta,
+		app_patient_register.studentb,
+		app_patient_register.signdate
+		FROM
+		app_patient_register
+		where app_patient_register.dbidkey = #{_parameter}
+	</select>
+
+	<delete id="deleteByDbidkey" parameterType="java.lang.String">
+		delete from
+		app_patient_register
+		where dbidkey = #{_parameter}
+	</delete>
+</mapper>

@@ -1,0 +1,7 @@
+/*
+	控制弹出提示框的大小，比如：error,info,question,warning
+  */
+.messager-box{
+	width: 260px;
+	height: 60px;
+}
